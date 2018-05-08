@@ -1,0 +1,16 @@
+framework : 개발자에게 제공해주는 객체가 존재한다.
+
+* C:\Anaconda3\Lib\site-packages
+ : 아나콘다의 경우는 위의 위치에서 django 폴더 확인
+
+
+C:\django_src>python manage.py migrate
+실행 시에 db.sqlite3 폴더가 생성됨
+
+ORM 매핑
+ - class = tabel
+ - object = row
+ (instance)
+ - variable = column
+ (property)
+

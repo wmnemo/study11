@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <h1><a href="/">Django's Blog App</a></h1>
+    </div>
+
+    {% for post in posts %}
+    <div>
+        <p>Published Date: {{post.published_date|date:"Y-m-d g: i a"}}</p>
+        <h2><a href="">{{post.title}}</a></h2>
+        <p>{{post.context|linebreaksbr}}</p>
+    </div>
+    {{post}}
+    {% endfor %}
+
+    <div>
+        <p>Published Date : 2018/05/08</p>
+        <h2><a href="">My Second Title</a></h2>
+        <p>Sample Text</p>
+    </div>
+</body>
+</html>

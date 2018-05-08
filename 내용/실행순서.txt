@@ -1,0 +1,5 @@
+1. github 계정
+2. Ananconda
+3. python charm 설치 (jetbrains.com)
+ 
+file | Setting | Project(Project Interpreter)
