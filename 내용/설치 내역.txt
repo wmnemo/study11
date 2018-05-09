@@ -9,7 +9,7 @@ Collecting django<2.0
   Downloading https://files.pythonhosted.org/packages/25/4d/c8228419346a0e84aec2
 02a43e181afc6572b861d38f8a0306dbce6abef0/Django-1.11.13-py2.py3-none-any.whl (6.
 9MB)
-    100% |????????????????????????????????| 7.0MB 161kB/s
+    100% |>>>>>>>>>>>>>>>>>>>>>>>>| 7.0MB 161kB/s
 Requirement already satisfied: pytz in c:\anaconda3\lib\site-packages (from djan
 go<2.0)
 Installing collected packages: django
@@ -21,7 +21,7 @@ C:\Users\kosta>python -m pip install --upgrade pip
 Cache entry deserialization failed, entry ignored
 Collecting pip
   Downloading https://files.pythonhosted.org/packages/0f/74/ecd13431bcc456ed390b44c8a6e917c1820365cbebcb6a8974d1cd045ab4
-    100% |????????????????????????????????| 1.3MB 787kB/s
+    100% |>>>>>>>>>>>>>>>>>>>>>>>>>>.| 1.3MB 787kB/s
 Installing collected packages: pip
   Found existing installation: pip 9.0.3
     Uninstalling pip-9.0.3:
@@ -31,178 +31,57 @@ Successfully installed pip-10.0.1
 C:\Users\kosta>
 
 
-# 프로젝트 생성 - 하위에 동일 폴더를 생성하지 않는다
-C:\django_src>django-admin startproject mysite .
-
-********** 데이터 생성
-
-C:\django_src>python manage.py makemigrations blog
-Migrations for 'blog':
-  blog\migrations\0001_initial.py
-    - Create model Post
-
-C:\django_src>python manage.py migrate blog
-Operations to perform:
-  Apply all migrations: blog
-Running migrations:
-  Applying blog.0001_initial... OK
-
-C:\django_src>python manage.py showmigrations blog
-blog
- [X] 0001_initial
-
-********** 데이터 확인
-
-Microsoft Windows [Version 6.1.7601]
-Copyright (c) 2009 Microsoft Corporation. All rights reserved.
-
-C:\django_src>python manage.py shell
-Python 3.6.4 |Anaconda, Inc.| (default, Jan 16 2018, 10:22:32) [MSC v.1900 64 bit (AMD64)]
-Type 'copyright', 'credits' or 'license' for more information
-IPython 6.2.1 -- An enhanced Interactive Python. Type '?' for help.
-
-In [1]: from blog.models import Post
-
-In [2]: Post.objects.all()
-Out[2]: <QuerySet [<Post: 샘플>, <Post: 샘플11>, <Post: 샘플222>, <Post: 샘플444>]>
-
-In [3]: from django.contrib.auth.models import User
-
-In [4]: me=User.objects.get(username='admin')
-
-In [5]: me
-Out[5]: <User: admin>
-
-In [6]: Post.objects.create(author=me, title='타이틀', context:'내용')
-  File "<ipython-input-6-92f06d9e6105>", line 1
-    Post.objects.create(author=me, title='타이틀', context:'내용')
-                                                       ^
-SyntaxError: invalid syntax
 
 
-In [7]: Post.objects.create(author=me, title='타이틀', context='내용')
-Out[7]: <Post: 타이틀>
+*** PostgedSQL 설치
 
-In [8]: Post.objects.all()
-Out[8]: <QuerySet [<Post: 샘플>, <Post: 샘플11>, <Post: 샘플222>, <Post: 샘플444>, <Post: 타이틀>]>
+다운로드 링크 : https://www.enterprisedb.com/downloads/postgres-postgresql-downloads
 
-In [9]: Post.objects.filter(author=me)
-Out[9]: <QuerySet [<Post: 샘플>, <Post: 샘플11>, <Post: 샘플222>, <Post: 샘플444>, <Post: 타이틀>]>
+postgres 10.3 최신 버전 설치
 
-In [10]: Post.objects.filter(title__contains='샘플')
-Out[10]: <QuerySet [<Post: 샘플>, <Post: 샘플11>, <Post: 샘플222>, <Post: 샘플444>]>
+=> 기본 default 로 설치
 
-In [11]: from django.utils import timezone
+Stack Builder 설치  => database server 에서 설치 버전 체크 후에 설치
 
-In [12]: Post.objects.filter(published_date__lte=timezone.now())
-Out[12]: <QuerySet [<Post: 샘플>]>
 
-In [13]: Post.objects.all()
-Out[13]: <QuerySet [<Post: 샘플>, <Post: 샘플11>, <Post: 샘플222>, <Post: 샘플444>, <Post: 타이틀>]>
+C:\django_src>pip install psycopg2
+Collecting psycopg2
+  Downloading https://files.pythonhosted.org/packages/f9/77/e29b792740ddec37a2d49431efa6c707cf3869c0cc7f28c7411bb6e96d91/psycopg2-2.7.4-cp36-cp36m-win_amd64.whl (996kB)
+    100% |????????????????????????????????| 1.0MB 20kB/s
+notebook 5.4.0 requires ipykernel, which is not installed.
+jupyter 1.0.0 requires ipykernel, which is not installed.
+jupyter-console 5.2.0 requires ipykernel, which is not installed.
+ipywidgets 7.1.1 requires ipykernel>=4.5.1, which is not installed.
+Installing collected packages: psycopg2
+Successfully installed psycopg2-2.7.4
 
-In [14]: mypost = Post.objects.get(title='타이트')
----------------------------------------------------------------------------
-DoesNotExist                              Traceback (most recent call last)
-<ipython-input-14-c23ef1c2755b> in <module>()
-----> 1 mypost = Post.objects.get(title='타이트')
+pgadmin4 로 실행
 
-C:\Anaconda3\lib\site-packages\django\db\models\manager.py in manager_method(self, *args, **kwargs)
-     83         def create_method(name, method):
-     84             def manager_method(self, *args, **kwargs):
----> 85                 return getattr(self.get_queryset(), name)(*args, **kwargs)
-     86             manager_method.__name__ = method.__name__
-     87             manager_method.__doc__ = method.__doc__
 
-C:\Anaconda3\lib\site-packages\django\db\models\query.py in get(self, *args, **kwargs)
-    378             raise self.model.DoesNotExist(
-    379                 "%s matching query does not exist." %
---> 380                 self.model._meta.object_name
-    381             )
-    382         raise self.model.MultipleObjectsReturned(
+사용자 계정 등록
+DB명 : mysite
+id: django / pass: djangoadmin
 
-DoesNotExist: Post matching query does not exist.
+-- Login
+ID/PASS/Privileges에서 권한은 모든 권한은
+--- Database
+database 등록
 
-In [15]: mypost = Post.objects.get(title='타이틀')
 
-In [16]: mypost
-Out[16]: <Post: 타이틀>
+-- setting 수정
 
-In [17]: mypost.publish
----------------------------------------------------------------------------
-AttributeError                            Traceback (most recent call last)
-<ipython-input-17-fc6bd80987ea> in <module>()
-----> 1 mypost.publish
-
-AttributeError: 'Post' object has no attribute 'publish'
-
-In [18]: mypost.publish()
----------------------------------------------------------------------------
-AttributeError                            Traceback (most recent call last)
-<ipython-input-18-5a6a5552f72c> in <module>()
-----> 1 mypost.publish()
-
-AttributeError: 'Post' object has no attribute 'publish'
-
-In [19]: post = Post.objects.get(title='타이틀')
-
-In [20]: post
-Out[20]: <Post: 타이틀>
-
-In [21]: post.publish()
----------------------------------------------------------------------------
-AttributeError                            Traceback (most recent call last)
-<ipython-input-21-6673668f8b81> in <module>()
-----> 1 post.publish()
-
-AttributeError: 'Post' object has no attribute 'publish'
-
-In [22]: post.publish()
----------------------------------------------------------------------------
-AttributeError                            Traceback (most recent call last)
-<ipython-input-22-6673668f8b81> in <module>()
-----> 1 post.publish()
-
-AttributeError: 'Post' object has no attribute 'publish'
-
-In [23]: exit
-
-C:\django_src>python manage.py shell
-Python 3.6.4 |Anaconda, Inc.| (default, Jan 16 2018, 10:22:32) [MSC v.1900 64 bit (AMD64)]
-Type 'copyright', 'credits' or 'license' for more information
-IPython 6.2.1 -- An enhanced Interactive Python. Type '?' for help.
-
-In [1]: post = Post.objects.get(title='타이틀')
----------------------------------------------------------------------------
-NameError                                 Traceback (most recent call last)
-<ipython-input-1-d97fb0b975be> in <module>()
-----> 1 post = Post.objects.get(title='타이틀')
-
-NameError: name 'Post' is not defined
-
-In [2]: from blog.models import Post
-
-In [3]: post = Post.objects.get(title='타이틀')
-
-In [4]: post.publish()
-
-In [5]: from django.utils import timezone
-
-In [6]: Post.objects.filter(published_date__lte=timezone.now())
-Out[6]: <QuerySet [<Post: 샘플>, <Post: 타이틀>]>
-
-In [7]: Post.object.get_object_or_404(title='타이트')
----------------------------------------------------------------------------
-AttributeError                            Traceback (most recent call last)
-<ipython-input-7-f2152a925785> in <module>()
-----> 1 Post.object.get_object_or_404(title='타이트')
-
-AttributeError: type object 'Post' has no attribute 'object'
-
-In [10]: Post.objects.filter(published_date__lte=timezone.now()).order_by('create_date')
-Out[10]: <QuerySet [<Post: 샘플>, <Post: 타이틀>]>
-
-In [11]: Post.objects.filter(published_date__lte=timezone.now()).order_by('-create_date')
-Out[11]: <QuerySet [<Post: 타이틀>, <Post: 샘플>]>
-
-In [12]: 
+DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'mysite',
+        'USER': 'django',
+        'PASSWORD': 'djangoadmin',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
 

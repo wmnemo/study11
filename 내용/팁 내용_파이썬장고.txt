@@ -14,3 +14,21 @@ ORM 매핑
  - variable = column
  (property)
 
+ 
+ # 프로젝트 생성 - 하위에 동일 폴더를 생성하지 않는다
+C:\django_src>django-admin startproject mysite .
+
+Model을 사용하여 DB를 만들면
+ app이름_테이블 명
+ 
+ 
+ # 관리자 암호 변경
+ python manage.py changepassword admin
+ 
+ 
+ # csrf 
+ -> django 의 경우 등록 시에 웹페이지 보안에 대한 설정 (꼭 사용해야 한다)
+ -> setting : django.middleware.csrf.CsrfViewMiddleware
+ 
+ # 컬럼이 추가 되면 무조건 파일을 만든다. makemigrations
+ 

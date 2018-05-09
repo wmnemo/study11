@@ -9,6 +9,8 @@ class Post(models.Model):
     title = models.CharField(max_length=200)
     # 내용
     context = models.TextField()
+    # migrations test
+    #test = models.TextField()
     # 작성일자
     create_date = models.DateTimeField(default=timezone.now)
     # 게시일
